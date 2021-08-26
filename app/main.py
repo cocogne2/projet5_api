@@ -51,20 +51,20 @@ def upload_files():
             #value=re.sub('\<a','<p',data_dict2[k]['Body2'])
             #data_dict2[k]['Body2']=value
             #data_dict2[k]['Body2']=re.sub('\<\/a','</p',data_dict2[k]['Body2'])
-            soup = BeautifulSoup(data_dict2[k]['Body2'])
+            soup = BeautifulSoup(data_dict2[k]['Body2'],"lxml")
             data_dict2[k]['Body2']=[]
     
             #on remplace les balises pre en p tout en gardant la balise <code>
             for p in soup.find_all('pre'):
-                n = BeautifulSoup('<p><code>%s</code></p>' % p.string)
+                n = BeautifulSoup('<p><code>%s</code></p>' % p.string,"lxml")
                 p.replace_with(n.body.contents[0])    
             
             #idem pour la balise h1
             for p in soup.find_all('h1'):
-                n = BeautifulSoup('<p>%s</p>' % p.string)
+                n = BeautifulSoup('<p>%s</p>' % p.string,"lxml")
                 p.replace_with(n.body.contents[0]) 
             for p in soup.find_all('h2'):
-                n = BeautifulSoup('<p>%s</p>' % p.string)
+                n = BeautifulSoup('<p>%s</p>' % p.string,"lxml")
                 p.replace_with(n.body.contents[0])     #on recupere la liste comprises entre des balises p dans Body2
             for p in soup.find_all('p') :
                 data_dict2[k]['Body2'].append(str(p))
@@ -91,7 +91,7 @@ def upload_files():
                     value = value.replace('<a', '</p><p><a') 
                     value = value.replace('</a>', '</a></p><p>')
                 #on soup
-                soup2 = BeautifulSoup(value)
+                soup2 = BeautifulSoup(value,"lxml")
                 list_temp=[]    
                 #on recupere la liste comprises dans les balises p et on l'insere dans la liste précédente
                 for q in soup2.find_all('p') :
@@ -392,8 +392,6 @@ def upload_files():
         data_fname = 'vector_body.pkl'
         with open(os.path.join(app.config['PATH_NAME'], data_fname), "rb") as tf:
             tf_vectorizer_body = pickle.load(tf)
-        print("tf\n\n",tf_vectorizer_body.__getstate__()['_sklearn_version'])
-        print("sklearn version",sklearn.__version__)
         tf_body=tf_vectorizer_body.transform(list_body_model)
         
         
