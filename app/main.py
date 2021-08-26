@@ -12,6 +12,7 @@ import numpy as np
 from spacy import load
 import en_core_web_sm
 from sklearn.feature_extraction.text import CountVectorizer
+import sklearn
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
