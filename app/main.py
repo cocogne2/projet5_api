@@ -21,7 +21,7 @@ app.config['PATH_NAME'] = os.path.abspath(os.path.dirname(__file__))
 
 @app.route('/')
 def index():
-    return "<html><head><title>File Upload</title></head><body><h1>File Upload</h1><form method=\"POST\" action=\"\" enctype=\"multipart/form-data\"> <p><input type=\"file\" name=\"csv_file\" accept=\".csv\"></p><p><input type=\"submit\" value=\"Submit\"></p></form></body></html>"
+    return "<html><head><title>File Upload</title></head><body><h1>Déposez un fichier csv avec une colonne Title et une colonne Body</h1><form method=\"POST\" action=\"\" enctype=\"multipart/form-data\"> <p><input type=\"file\" name=\"csv_file\" accept=\".csv\"></p><p><input type=\"submit\" value=\"Submit\"></p></form></body></html>"
 
 @app.route('/', methods=['POST'])
 def upload_files():
@@ -30,14 +30,14 @@ def upload_files():
     if filename != '':
         file_ext = os.path.splitext(filename)[1]
         if file_ext not in app.config['UPLOAD_EXTENSIONS']:
-            return "<html><head><title>L\'extension n\'est pas bonne File Upload</title></head><body><h1>L\'extension n\'est pas bonne</h1><h1>File Upload</h1><form method=\"POST\" action=\"\" enctype=\"multipart/form-data\"> <p><input type=\"file\" name=\"csv_file\" accept=\".csv\"></p><p><input type=\"submit\" value=\"Submit\"></p></form></body></html>"            
+            return "<html><head><title>L\'extension n\'est pas bonne File Upload</title></head><body><h1>L\'extension n\'est pas bonne</h1><form method=\"POST\" action=\"\" enctype=\"multipart/form-data\"> <p><input type=\"file\" name=\"csv_file\" accept=\".csv\"></p><p><input type=\"submit\" value=\"Submit\"></p></form></body></html>"            
         data = pd.read_csv(uploaded_file, sep=",")
         if 'Title' not in data.columns:
             print('le csv ne contient pas de colonne Title')
-            return "<html><head><title>le csv ne contient pas de colonne Title File Upload</title></head><body><h1>le csv ne contient pas de colonne Title</h1><h1>File Upload</h1><form method=\"POST\" action=\"\" enctype=\"multipart/form-data\"> <p><input type=\"file\" name=\"csv_file\" accept=\".csv\"></p><p><input type=\"submit\" value=\"Submit\"></p></form></body></html>"
+            return "<html><head><title>le csv ne contient pas de colonne Title File Upload</title></head><body><h1>le csv ne contient pas de colonne Title</h1><form method=\"POST\" action=\"\" enctype=\"multipart/form-data\"> <p><input type=\"file\" name=\"csv_file\" accept=\".csv\"></p><p><input type=\"submit\" value=\"Submit\"></p></form></body></html>"
         if 'Body' not in data.columns:
             print('le csv ne contient pas de colonne Body')
-            return "<html><head><title>le csv ne contient pas de colonne Body File Upload</title></head><body><h1>le csv ne contient pas de colonne Body</h1><h1>File Upload</h1><form method=\"POST\" action=\"\" enctype=\"multipart/form-data\"> <p><input type=\"file\" name=\"csv_file\" accept=\".csv\"></p><p><input type=\"submit\" value=\"Submit\"></p></form></body></html>"
+            return "<html><head><title>le csv ne contient pas de colonne Body File Upload</title></head><body><h1>le csv ne contient pas de colonne Body</h1><form method=\"POST\" action=\"\" enctype=\"multipart/form-data\"> <p><input type=\"file\" name=\"csv_file\" accept=\".csv\"></p><p><input type=\"submit\" value=\"Submit\"></p></form></body></html>"
             ####       
         data=data[['Title','Body']]
         data_dict2=data.set_index('Title').to_dict('index')    
