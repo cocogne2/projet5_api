@@ -396,12 +396,10 @@ def upload_files():
         
         df_tags_matrix_multiclass_mlp_predict=df_tags_matrix['question']
         df_tags_matrix_multiclass_mlp_predict=df_tags_matrix_multiclass_mlp_predict.reset_index(drop=True)
-        print("a")
         list_tag_brute=['python', 'tensorflow', 'flutter', 'flutter-layout', 'javascript', 'node.js', 'google', 'c#', 'asp.net-core', 'angular', 'angular6', 'jquery', 'reactjs', 'typescript', 'git', 'java', 'android', 'android-studio', 'gradle', 'kotlin', 'pandas', 'docker', 'apache', 'php', 'mysql', 'ubuntu', 'spring', 'python-3.x', 'spring-boot', 'dart', 'html', 'sql', 'react-native', 'css', 'asp.net', 'numpy', 'material-ui', 'vue.js', 'laravel', 'amazon-web-services', 'amazon', 'kubernetes', 'dataframe', 'c++', 'webpack', 'visual-studio', 'keras', 'jestjs', '.net-core', 'swift', 'arrays', 'xcode', 'angular-material', 'ios', 'firebase', 'json', 'vuejs2', 'docker-compose', 'django', 'react-hooks', 'visual-studio-code', 'macos', 'npm', 'bootstrap-4', 'windows', 'jupyter', 'linux', 'selenium']
         data_fname = 'mlp_tf_multiclass.pkl'
         with open(os.path.join(app.config['PATH_NAME'], data_fname), "rb") as tf:
             model = pickle.load(tf)
-        print("b")
         y_predict=model.predict_proba(tf_body)
 
         temp=pd.DataFrame(y_predict,  columns=["prob_prediction_1_mlp_multiclass_tf_tag_"+i for i in list_tag_brute] )
