@@ -391,6 +391,8 @@ def upload_files():
         data_fname = 'vector_body.pkl'
         with open(os.path.join(app.config['PATH_NAME'], data_fname), "rb") as tf:
             tf_vectorizer_body = pickle.load(tf)
+        print("tf\n\n",tf_vectorizer_body.__getstate__()['_sklearn_version'])
+        print("sklearn version",sklearn.__version__)
         tf_body=tf_vectorizer_body.transform(list_body_model)
         
         
