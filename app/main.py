@@ -15,7 +15,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 import sklearn
 
 app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 1048576 * 1048576
 app.config['UPLOAD_EXTENSIONS'] = ['.csv']
 
 app.config['PATH_NAME'] = os.path.abspath(os.path.dirname(__file__))
